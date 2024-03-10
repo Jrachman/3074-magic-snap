@@ -2,6 +2,8 @@ import snapPackageInfo from '../../../snap/package.json';
 import { defaultSnapOrigin } from '../config';
 import type { GetSnapsResponse, Snap } from '../types';
 
+import { type KeyringAccount } from '@metamask/keyring-api';
+
 /**
  * Get the installed snaps in MetaMask.
  *
@@ -89,6 +91,16 @@ export const isSynchronousMode = async (): Promise<boolean> => {
       request: { method: 'snap.internal.isSynchronousMode' },
     },
   })) as boolean;
+};
+
+export const createAccountWithPrivateKey = async (): Promise<KeyringAccount> => {
+  return (await window.ethereum.request({
+    method: 'wallet_invokeSnap',
+    params: {
+      snapId: defaultSnapOrigin,
+      request: { method: 'snap.internal.createAccountWithPrivateKey' },
+    },
+  })) as KeyringAccount;
 };
 
 export const isLocalSnap = (snapId: string) => snapId.startsWith('local:');

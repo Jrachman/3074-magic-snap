@@ -26,6 +26,7 @@ import {
   getSnap,
   isSynchronousMode,
   toggleSynchronousApprovals,
+  createAccountWithPrivateKey
 } from '../utils';
 
 const snapId = defaultSnapOrigin;
@@ -91,6 +92,12 @@ const Index = () => {
     return newAccount;
   };
 
+  const createAccountWithPrivateKey_ = async () => {
+    const newAccount = await createAccountWithPrivateKey();
+    await syncAccounts();
+    return newAccount;
+  }
+
   const importAccount = async () => {
     const newAccount = await client.createAccount({
       privateKey: privateKey as string,
@@ -147,6 +154,16 @@ const Index = () => {
         label: 'Create Account',
       },
       successMessage: 'Account created',
+    },
+    {
+      name: 'Create account w/ private key',
+      description: 'Create a new account w/ private key',
+      inputs: [],
+      action: {
+        callback: async () => await createAccountWithPrivateKey_(),
+        label: 'Create Account w/ private key',
+      },
+      successMessage: 'Account w/ private key created',
     },
     {
       name: 'Import account',

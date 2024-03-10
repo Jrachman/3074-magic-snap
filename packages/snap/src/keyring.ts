@@ -39,7 +39,7 @@ import {
   serializeTransaction,
   isUniqueAddress,
   throwError,
-  runSensitive,
+  runSensitive
 } from './util';
 import packageInfo from '../package.json';
 
@@ -84,7 +84,7 @@ export class SimpleKeyring implements Keyring {
     }
     // The private key should not be stored in the account options since the
     // account object is exposed to external components, such as MetaMask and
-    // the snap UI.
+    // the snap UI. 
     if (options?.privateKey) {
       delete options.privateKey;
     }
